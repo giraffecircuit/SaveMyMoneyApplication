@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,11 +80,16 @@ public class TabSaving extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tab_saving, container, false);
         ListView listview =(ListView)rootView .findViewById(R.id.lstSavingView);
-        String[] items = new String[] {"Banks", "Indian Postal Service", "Goverment Bonds"};
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-
-        listview.setAdapter(adapter);
+        String[] items = new String[] {"Banks & FD","Mutual Fund", "Indian Postal Service","Soverign Gold Bond", "Goverment Bonds",""};
+        ArrayList myList = new ArrayList();
+        /*ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);*/
+        for (int i = 0; i < items.length; i++)
+        {
+            myList.add(items[i].toString());
+        }
+        CustomAdapter customAdapter=new CustomAdapter(getContext(),myList);
+        listview.setAdapter(customAdapter);
         return rootView;
     }
 

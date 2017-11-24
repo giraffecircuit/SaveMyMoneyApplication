@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +67,20 @@ public class TabInsurance extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_insurance, container, false);
+        /*return inflater.inflate(R.layout.fragment_tab_insurance, container, false);*/
+        View rootView = inflater.inflate(R.layout.fragment_tab_insurance, container, false);
+        ListView listview =(ListView)rootView .findViewById(R.id.lstInsuranceView);
+        String[] items = new String[] {"ULIP","Term Insurance Plan", "Health & Medical Plan","Property Insurance", "Vehicle Insurance","Travel Insurance"};
+        ArrayList myList = new ArrayList();
+        /*ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);*/
+        for (int i = 0; i < items.length; i++)
+        {
+            myList.add(items[i].toString());
+        }
+        CustomAdapter customAdapter=new CustomAdapter(getContext(),myList);
+        listview.setAdapter(customAdapter);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

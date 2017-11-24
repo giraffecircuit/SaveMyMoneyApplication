@@ -5,13 +5,18 @@
     tools:context="com.example.admin.savemymoneyapplication.TabInsurance">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Insurance"
         android:layout_centerInParent="true"
         android:textSize="30dp"
+        />-->
+
+    <ListView
+        android:id="@+id/lstInsuranceView"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         />
-
-
 </RelativeLayout>
