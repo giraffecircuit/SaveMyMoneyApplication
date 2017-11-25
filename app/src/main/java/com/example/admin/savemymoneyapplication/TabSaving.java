@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import java.util.ArrayList;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,7 +79,7 @@ public class TabSaving extends Fragment {
         //return inflater.inflate(R.layout.fragment_tab_saving, container, false);
 
         View rootView = inflater.inflate(R.layout.fragment_tab_saving, container, false);
-        ListView listview =(ListView)rootView .findViewById(R.id.lstSavingView);
+        final ListView listview =(ListView)rootView .findViewById(R.id.lstSavingView);
         String[] items = new String[] {"Banks & FD","Mutual Fund", "Indian Postal Service","Soverign Gold Bond", "Goverment Bonds",""};
         ArrayList myList = new ArrayList();
         /*ArrayAdapter<String> adapter =
@@ -89,7 +89,26 @@ public class TabSaving extends Fragment {
             myList.add(items[i].toString());
         }
         CustomAdapter customAdapter=new CustomAdapter(getContext(),myList);
+        /*listview.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Toast toast = Toast.makeText(arg0.getContext(),"dfsfsfsdf",Toast.LENGTH_LONG);
+
+            }
+        });*/
         listview.setAdapter(customAdapter);
+
+        /*ListView lv = getListView();
+        lv.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+            {
+                Intent launchActivity = new Intent(FirstActivity.this, SecondActivity.class);
+                startActivity(launchActivity);
+            }
+        });*/
+
         return rootView;
     }
 
