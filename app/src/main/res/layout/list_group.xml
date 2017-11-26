@@ -5,19 +5,18 @@
 
     <TextView
         android:id="@+id/lblListHeader"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:lineSpacingExtra="10sp"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:scrollbars="vertical"
         android:text="TextView"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:scrollbars="vertical"
-        />
+        android:textStyle="bold" />
 
 </LinearLayout>

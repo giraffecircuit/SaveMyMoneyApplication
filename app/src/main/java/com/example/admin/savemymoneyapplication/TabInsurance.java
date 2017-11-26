@@ -90,9 +90,10 @@ public class TabInsurance extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("ULIP");
-        listDataHeader.add("Term Plan");
-        listDataHeader.add("Health Insurance");
+        listDataHeader.add("Banks & FD");
+        listDataHeader.add("Mutual Fund");
+        listDataHeader.add("Indian Postal Service");
+        listDataHeader.add("Goverment Scheme");
 
         // Adding child data
         List<String> top250 = new ArrayList<String>();
