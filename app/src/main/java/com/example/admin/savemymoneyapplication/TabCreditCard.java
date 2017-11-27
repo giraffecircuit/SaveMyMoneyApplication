@@ -1,5 +1,6 @@
 package com.example.admin.savemymoneyapplication;
 
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,7 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,30 +26,21 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class TabCreditCard extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
     private String mParam1;
     private String mParam2;
+    private TabCreditCard.OnFragmentInteractionListener mListener;
 
-    private OnFragmentInteractionListener mListener;
 
     public TabCreditCard() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TabCreditCard.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TabCreditCard newInstance(String param1, String param2) {
         TabCreditCard fragment = new TabCreditCard();
         Bundle args = new Bundle();
@@ -63,11 +62,61 @@ public class TabCreditCard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_credit_card, container, false);
+        super.onCreate(savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_tab_credit_card, container, false);
+        expListView = (ExpandableListView) rootView.findViewById(R.id.listViewExpCreditCard);
+        prepareListData();
+        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
+        expListView.setAdapter(listAdapter);
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                return false;
+            }
+        });
+        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+            }
+        });
+        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+            }
+        });
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                return false;
+            }
+        });
+        return rootView;
+    }
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("Credit Card Calculator");
+        listDataHeader.add("Loan Calculator");
+
+        // Adding child data
+        List<String> creditCard= new ArrayList<String>();
+        creditCard.add("Eligibility Calculator");
+        creditCard.add("Payment EMI Calculator");
+
+        List<String> loanCalculator= new ArrayList<String>();
+        loanCalculator.add("Personal Loan");
+        loanCalculator.add("Home Loan");
+        loanCalculator.add("Vehicle Loan");
+
+        listDataChild.put(listDataHeader.get(0), creditCard); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), loanCalculator);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -91,18 +140,7 @@ public class TabCreditCard extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -6,54 +6,30 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 import java.util.ArrayList;
-import android.widget.Toast;
+import java.util.List;
+import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TabSaving.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TabSaving#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TabSaving extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    //Defining android ListView
-    ListView mListView;
-
-    //Elements that will be displayed in android ListView
-    String[] Countries = new String[]{"India", "Australia", "Newzealand",
-            "Indonesia", "China", "Russia", "Japan", "South Korea"};
-
+    private TabSaving.OnFragmentInteractionListener mListener;
 
     public TabSaving() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TabSaving.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TabSaving newInstance(String param1, String param2) {
         TabSaving fragment = new TabSaving();
         Bundle args = new Bundle();
@@ -75,44 +51,105 @@ public class TabSaving extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_tab_saving, container, false);
-
+        super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_tab_saving, container, false);
-        final ListView listview =(ListView)rootView .findViewById(R.id.lstSavingView);
-        String[] items = new String[] {"Banks & FD","Mutual Fund", "Indian Postal Service","Soverign Gold Bond", "Goverment Bonds",""};
-        ArrayList myList = new ArrayList();
-        /*ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);*/
-        for (int i = 0; i < items.length; i++)
-        {
-            myList.add(items[i].toString());
-        }
-        CustomAdapter customAdapter=new CustomAdapter(getContext(),myList);
-        /*listview.setOnItemClickListener(new OnItemClickListener()
-        {
+        expListView = (ExpandableListView) rootView.findViewById(R.id.listViewExpSaving);
+        prepareListData();
+        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
+        expListView.setAdapter(listAdapter);
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
-            {
-                Toast toast = Toast.makeText(arg0.getContext(),"dfsfsfsdf",Toast.LENGTH_LONG);
-
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                return false;
             }
-        });*/
-        listview.setAdapter(customAdapter);
-
-        /*ListView lv = getListView();
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
-            {
-                Intent launchActivity = new Intent(FirstActivity.this, SecondActivity.class);
-                startActivity(launchActivity);
+        });
+        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
             }
-        });*/
+        });
+        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+            }
+        });
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                return false;
+            }
+        });
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("Banks & Fixed Deposit");
+        listDataHeader.add("Mutual Funds");
+        listDataHeader.add("Indian Postal Service");
+        listDataHeader.add("Retirement");
+        listDataHeader.add("Governments Schemes");
+        listDataHeader.add("Bonds");
+        listDataHeader.add("Senior Citizens");
+        //listDataHeader.add("Chit Funds");
+
+        // Adding child data
+        List<String> banksAndFD = new ArrayList<String>();
+        banksAndFD.add("Saving Accounts");
+        banksAndFD.add("Fixed Deposits");
+        banksAndFD.add("Recurring Deposit");
+        banksAndFD.add("Lockers");
+
+        List<String> mutualFunds = new ArrayList<String>();
+        mutualFunds.add("SIP Calculator");
+        mutualFunds.add("SWP Calculator");
+        mutualFunds.add("Tax Saving Mutual Fund");
+        mutualFunds.add("RGESS Mutual Fund");
+
+        List<String> indianPostalService= new ArrayList<String>();
+        indianPostalService.add("Recurring Deposit");
+        indianPostalService.add("Monthly Income Scheme");
+        indianPostalService.add("Public Provident Fund");
+        indianPostalService.add("National Saving Certificate");
+        indianPostalService.add("Kisan Vikas Patra");
+
+        List<String> retirements= new ArrayList<String>();
+        retirements.add("National Pension Scheme - NPS");
+        retirements.add("Employee Provident Fund");
+        retirements.add("Gratuity");
+        retirements.add("Atal Pension Yojana");
+        retirements.add("Pension Calculator");
+
+        List<String> seniorCitizens= new ArrayList<String>();
+        seniorCitizens.add("Fixed Deposit");
+
+        List<String> govermentSchemes= new ArrayList<String>();
+        govermentSchemes.add("Jan Dhan Account");
+        govermentSchemes.add("Sukanya Smaruddhi Yojana");
+        govermentSchemes.add("Garib Kalyan Yojana");
+
+        List<String> bonds= new ArrayList<String>();
+        bonds.add("Infrastructure Bond");
+        bonds.add("Sovereign Gold Bond");
+        bonds.add("Financial Institution Bond");
+
+
+        listDataChild.put(listDataHeader.get(0), banksAndFD); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), mutualFunds);
+        listDataChild.put(listDataHeader.get(2), indianPostalService);
+        listDataChild.put(listDataHeader.get(3), retirements);
+        listDataChild.put(listDataHeader.get(4), govermentSchemes);
+        listDataChild.put(listDataHeader.get(5), seniorCitizens);
+        listDataChild.put(listDataHeader.get(5), bonds);
+
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -122,8 +159,8 @@ public class TabSaving extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof TabSaving.OnFragmentInteractionListener) {
+            mListener = (TabSaving.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -136,18 +173,7 @@ public class TabSaving extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

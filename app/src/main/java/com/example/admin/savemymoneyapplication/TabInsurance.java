@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
+
 public class TabInsurance extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -90,39 +91,51 @@ public class TabInsurance extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("Banks & FD");
-        listDataHeader.add("Mutual Fund");
-        listDataHeader.add("Indian Postal Service");
-        listDataHeader.add("Goverment Scheme");
+        listDataHeader.add("Saving Insurance");
+        listDataHeader.add("Term Insurance");
+        listDataHeader.add("Health Insurance");
+        listDataHeader.add("Travel Insurance");
+        listDataHeader.add("General Insurance");
+        listDataHeader.add("Vehicle Insurance");
 
         // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
+        List<String> savingAndInsurance= new ArrayList<String>();
+        savingAndInsurance.add("United Link Insurance Plan - ULIP");
+        savingAndInsurance.add("Family Protection Plan");
+        savingAndInsurance.add("Education Plan");
+        savingAndInsurance.add("Retirement Plan");
+        savingAndInsurance.add("Future Plan");
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
+        // Adding child data
+        List<String> termInsurance= new ArrayList<String>();
+        termInsurance.add("Death & Accident Insurance");
+        termInsurance.add("Critical Illness Insurance");
 
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
+        // Adding child data
+        List<String> healthInsurance = new ArrayList<String>();
+        healthInsurance .add("Medical Insurance");
+        healthInsurance .add("OPD");
 
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+        // Adding child data
+        List<String> travelInsurance = new ArrayList<String>();
+        travelInsurance .add("Journey Insurance");
+        travelInsurance .add("Luggage Insurance");
+
+        // Adding child data
+        List<String> generalInsurance = new ArrayList<String>();
+        generalInsurance .add("Property Insurance");
+
+        // Adding child data
+        List<String> vehicleInsurance = new ArrayList<String>();
+        vehicleInsurance .add("Two-Wheeler Insurance");
+        vehicleInsurance .add("Four-Wheeler Insurance");
+
+        listDataChild.put(listDataHeader.get(0), termInsurance); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), healthInsurance);
+        listDataChild.put(listDataHeader.get(2), travelInsurance);
+        listDataChild.put(listDataHeader.get(3), generalInsurance);
+        listDataChild.put(listDataHeader.get(4), vehicleInsurance);
+
     }
 
     public void onButtonPressed(Uri uri) {
