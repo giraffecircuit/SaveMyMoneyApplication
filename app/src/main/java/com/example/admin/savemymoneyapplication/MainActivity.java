@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements TabSaving.OnFragm
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Saving"));
-        tabLayout.addTab(tabLayout.newTab().setText("Insurance"));
-        tabLayout.addTab(tabLayout.newTab().setText("Credit Card"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Insurance"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Credit Card"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
